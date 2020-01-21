@@ -52,3 +52,12 @@ numberButtons.forEach(button => {
         calculator.updateDisplay()
     })
 });
+
+numberButtons.style.backgroundColor = "red";
+
+operationButtons.style.color = "red";
+
+
+const someButton = document.getElementsByClassName("span-two");
+
+someButton.style.color = "red";
