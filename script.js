@@ -20,11 +20,37 @@ class Calculator {
     };
 
     chooseOperation(operation) {
-        this.previousOperand = this.currentOperand
+        if (this.currentOperand === '') return
+        if (this.previousOperand !== '') {
+            this.compute()
+        } 
+        this.previousOperand = this.currentOperand;
+        this.currentOperand = '';
+        this.operation = operation;
     };
 
     compute() {
-
+        let computation
+        const prev = parseFloat(this.previousOperand)
+        const curr = parseFloat(this.currentOperand)
+        if (isNaN(prev) || isNaN(curr)) return
+        switch (this.operation) {
+            case '+':
+                computation = prev + curr
+                break;
+            case '-':
+                computation = prev - curr;
+                break;
+            case '*':
+                computation = prev * curr;
+                break;
+            case '/':
+                computation = prev / curr;
+                break;
+        };
+        this.currentOperand = computation
+        this.previousOperand = ''
+        this.operation = undefined
     };
 
     getDisplayNumber(number) {
@@ -69,13 +95,15 @@ deleteButton.addEventListener( "click", () => {
 
 operationButton.forEach(button => {
     button.addEventListener( "click", () => {
-        calculator.appendNumber(button.innerText);
         calculator.chooseOperation(button.innerText);
         calculator.updateDisplay();
     });
 });
 
-
+equalsButton.addEventListener('click', () => {
+    calculator.compute();
+    calculator.updateDisplay();
+});
 
 
 
